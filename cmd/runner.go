@@ -277,6 +277,10 @@ func newExtProcRunnable(extProcServer extProcPb.ExternalProcessorServer, port in
 	}
 
 	return manager.RunnableFunc(func(ctx context.Context) error {
+		// Per-message limit only (gRPC MaxRecvMsgSize). RHAI-13005 fails when
+		// Envoy delivers one body chunk larger than the limit; this does not
+		// bound cumulative body bytes reassembled across streamed chunks
+		// (that remains an upstream IPP handler concern).
 		grpcOpts := []grpc.ServerOption{grpc.MaxRecvMsgSize(maxRecv)}
 		ctrl.Log.WithName("ext-proc").Info("gRPC MaxRecvMsgSize configured",
 			"bytes", maxRecv, "env", grpcMaxRecvMsgSizeEnv)

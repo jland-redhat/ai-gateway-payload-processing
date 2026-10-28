@@ -34,6 +34,7 @@ const (
 	// (base64 images in conversation history) that routinely exceed gRPC's
 	// compiled 4 MiB default, while still bounding memory vs math.MaxInt32.
 	// 32 MiB matches common LLM-gateway / llm-d-router operator examples.
+	// This is a per-gRPC-message cap, not an aggregate streamed-body budget.
 	defaultGRPCMaxRecvMsgSize = 32 * 1024 * 1024
 )
 
