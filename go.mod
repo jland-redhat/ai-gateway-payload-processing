@@ -127,3 +127,7 @@ require (
 	sigs.k8s.io/structured-merge-diff/v6 v6.4.0 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
+
+// RHAI-50090: equivalent of opendatahub-io/ai-gateway-payload-processing#494
+// (rhoai-3.5 uses external llm-d runner; local cmd/runner.go does not exist yet)
+replace github.com/llm-d/llm-d-inference-payload-processor => github.com/jland-redhat/llm-d-inference-payload-processor v0.0.0-20261118211127-f10beb47a709
